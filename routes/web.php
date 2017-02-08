@@ -14,3 +14,5 @@
 Route::get('/', 'MessageController@getIndex');
 
 Route::get('/create', 'MessageController@getCreate');
+
+Route::post('/create', 'MessageController@postCreate');
