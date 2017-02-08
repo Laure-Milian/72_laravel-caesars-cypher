@@ -41,8 +41,8 @@ class MessageController extends Controller
 				$letters_encrypted[] = $letter;
 			} else {
 				$new_position = $position + $offset;
-				if ($new_position > 25) {
-					$difference = $new_position - 26;
+				if ($new_position % 25 >= 1) {
+					$difference = ($new_position % 25) - 1;
 					$letters_encrypted[] = $this->_alphabet[$difference];
 				} else {
 					$letters_encrypted[] = $this->_alphabet[$new_position];

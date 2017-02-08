@@ -8,8 +8,11 @@
 
 @foreach($messages as $message)
 <div class="ui segment">
-{{$message->content}}	
+{{$message->content}}
+<a href="/decrypt">Essayer de décripter ce message</a>
 </div>
 @endforeach
+
+<a class="ui fluid blue button" href="/create">Envoyer un message</a>
 
 @endsection
