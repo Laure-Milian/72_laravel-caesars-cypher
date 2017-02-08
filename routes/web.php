@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'MessageController@getIndex');
+Route::get('/', 'MessageController@getList');
 
 Route::get('/create', 'MessageController@getCreate');
 

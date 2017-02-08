@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Message;
 
 class MessageController extends Controller
 {
@@ -13,8 +14,9 @@ class MessageController extends Controller
 		$this->_alphabet = $letters;
 	}
 
-	public function getIndex() {
-		return 'coucou';
+	public function getList() {
+		$messages = Message::all();
+		return view('list', ['messages' => $messages]);
 	}
 
 	public function getCreate() {
@@ -24,8 +26,11 @@ class MessageController extends Controller
 	public function postCreate(Request $request) {
 		$message = strtoupper($request->message);
 		$offset = $request->offset;
-		$data = $this->encryption($message, $offset);
-		return $data;
+		$encrypted_message = $this->encryption($message, $offset);
+		$entry = new Message;
+		$entry->content = $encrypted_message;
+		$entry->offseting = $offset;
+		$entry->save();
 	}
 
 	private function encryption($message, $offset) {
@@ -47,4 +52,5 @@ class MessageController extends Controller
 		$msg_encrypted = implode("", $letters_encrypted);
 		return $msg_encrypted;
 	}
+
 }
