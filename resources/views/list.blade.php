@@ -9,7 +9,7 @@
 @foreach($messages as $message)
 <div class="ui segment">
 {{$message->content}}
-<a href="/decrypt">Essayer de décripter ce message</a>
+<a href="/show/{{$message->id}}">Essayer de décripter ce message</a>
 </div>
 @endforeach
 

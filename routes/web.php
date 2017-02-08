@@ -16,3 +16,5 @@ Route::get('/', 'MessageController@getList');
 Route::get('/create', 'MessageController@getCreate');
 
 Route::post('/create', 'MessageController@postCreate');
+
+Route::get('/show/{id}', 'MessageController@getShow');

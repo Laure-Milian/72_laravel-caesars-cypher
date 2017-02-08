@@ -53,4 +53,8 @@ class MessageController extends Controller
 		return $msg_encrypted;
 	}
 
+	public function getShow($id) {
+		$message = Message::find($id);
+		return view('show', ['message' => $message]);
+	}
 }
