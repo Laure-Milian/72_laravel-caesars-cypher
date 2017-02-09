@@ -18,3 +18,5 @@ Route::get('/create', 'MessageController@getCreate');
 Route::post('/create', 'MessageController@postCreate');
 
 Route::get('/show/{id}', 'MessageController@getShow');
+
+Route::post('/decrypt/{id}', 'MessageController@postDecrypt');

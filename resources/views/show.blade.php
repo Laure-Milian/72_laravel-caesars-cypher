@@ -8,9 +8,9 @@
 </div>
 
 <h2>Quelle clef utiliser ?</h2>
-<form action="">
-	<input id="id" type="hidden" value="{{$message->id}}">
+<form action="/decrypt/{{$message->id}}" method="post">
 	<div class="field">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<label for="offset"></label>
 		<input id="offset" name="offset" type="number">
 	</div>
@@ -19,7 +19,7 @@
 	</div>
 </form>
 
-<h2>Le message à décrypter</h2>
+<h2>Le message à déchiffrer</h2>
 <div id="decrypted_message" class="ui segment"></div>
 
 @endsection

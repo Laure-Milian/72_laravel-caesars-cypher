@@ -34,22 +34,21 @@ class MessageController extends Controller
 	}
 
 	private function encryption($message, $offset) {
-		$letters = str_split($message);
-		foreach ($letters as $letter) {
-			$position = array_search($letter, $this->_alphabet);
-			if ($letter !== "A" && !$position) {
-				$letters_encrypted[] = $letter;
-			} else {
+		$letters_array = str_split($message);
+		foreach ($letters_array as $letter) {
+			if (!in_array($letter, $this->_alphabet)) {
+				$new_array[] = $letter;
+			} else {	
+				$position = array_search($letter, $this->_alphabet);
 				$new_position = $position + $offset;
-				if ($new_position % 25 >= 1) {
-					$difference = ($new_position % 25) - 1;
-					$letters_encrypted[] = $this->_alphabet[$difference];
-				} else {
-					$letters_encrypted[] = $this->_alphabet[$new_position];
-				}
+				if ($new_position > 25) {
+					$diff = $new_position % 26;
+					$new_position = 0 + $diff;
+				} 
+				$new_array[] = $this->_alphabet[$new_position];
 			}
 		}
-		$msg_encrypted = implode("", $letters_encrypted);
+		$msg_encrypted = implode("", $new_array);
 		return $msg_encrypted;
 	}
 
@@ -57,4 +56,28 @@ class MessageController extends Controller
 		$message = Message::find($id);
 		return view('show', ['message' => $message]);
 	}
+
+	public function postDecrypt(Request $request, $id) {
+		$message = Message::find($id);
+		$offset = $request->offset;
+		$letters_array = str_split($message->content);
+		foreach ($letters_array as $letter) {
+			if (!in_array($letter, $this->_alphabet)) {
+				$new_array[] = $letter;
+			} else {	
+				$position = array_search($letter, $this->_alphabet);
+				for ($i = 0 ; $i < $offset; $i++) {
+					if ($position === 0) {
+						$position = 25;
+					} else {
+						$position = $position -1;
+					}
+				}
+				$new_array[] = $this->_alphabet[$position];
+			}
+		}
+		return $new_array;
+	}
 }
+
+

@@ -3,7 +3,7 @@
 	app = {
 
 		init: function() {
-			this.listeners();
+			//this.listeners();
 		},
 
 		listeners: function() {
@@ -11,29 +11,20 @@
 		},
 
 		decrypt: function() {
-			var offset = $("#offset").val();
-			var id = $("#id").val();
-			console.log(id);
+			let offset = $("#offset").val();
+			let id = $("#id").val();
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
 			$.ajax({
-				url: '/decrypt/' + id,
+				url: '/decrypt/' + id + '/' + offset,
 				type: 'post'
 			})
 			.done(function(response) {
 				$("#decrypted_message").html(response);
 			})
-
-			// $.ajax({
-			// 	url: '/products/subtract/' + id,
-			// 	type: 'post'
-			// })
-			// .done(function(response) {
-			// 	$("#stock").html(response);
-			// });
 		}
 	}
 
