@@ -3,7 +3,7 @@
 	app = {
 
 		init: function() {
-			//this.listeners();
+			this.listeners();
 		},
 
 		listeners: function() {
@@ -12,18 +12,18 @@
 
 		decrypt: function() {
 			let offset = $("#offset").val();
-			let id = $("#id").val();
+			let id = $("#id").html();
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
 			$.ajax({
-				url: '/decrypt/' + id + '/' + offset,
+				url: '/show/' + id + '/' + offset,
 				type: 'post'
 			})
 			.done(function(response) {
-				$("#decrypted_message").html(response);
+				$('#decrypted_message').html(response);
 			})
 		}
 	}

@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>César Messagerie</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.css">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 

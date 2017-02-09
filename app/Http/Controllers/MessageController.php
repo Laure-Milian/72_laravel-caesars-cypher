@@ -26,58 +26,53 @@ class MessageController extends Controller
 	public function postCreate(Request $request) {
 		$message = strtoupper($request->message);
 		$offset = $request->offset;
-		$encrypted_message = $this->encryption($message, $offset);
+		$encrypted_message = $this->crypt($message, $offset, true);
+		$this->saveMessage($encrypted_message, $offset);
+		$messages = Message::all();
+		return view('list', ['messages' => $messages]);
+	}
+
+	public function saveMessage($encrypted_message, $offset) {
 		$entry = new Message;
 		$entry->content = $encrypted_message;
 		$entry->offseting = $offset;
 		$entry->save();
 	}
 
-	private function encryption($message, $offset) {
-		$letters_array = str_split($message);
-		foreach ($letters_array as $letter) {
-			if (!in_array($letter, $this->_alphabet)) {
-				$new_array[] = $letter;
-			} else {	
-				$position = array_search($letter, $this->_alphabet);
-				$new_position = $position + $offset;
-				if ($new_position > 25) {
-					$diff = $new_position % 26;
-					$new_position = 0 + $diff;
-				} 
-				$new_array[] = $this->_alphabet[$new_position];
-			}
-		}
-		$msg_encrypted = implode("", $new_array);
-		return $msg_encrypted;
-	}
 
 	public function getShow($id) {
 		$message = Message::find($id);
 		return view('show', ['message' => $message]);
 	}
 
-	public function postDecrypt(Request $request, $id) {
-		$message = Message::find($id);
-		$offset = $request->offset;
-		$letters_array = str_split($message->content);
+	public function postShow(Request $request, $id, $offset) {
+		$message = Message::find($id)->content;
+		//$offset = $request->offset;
+		$decrypted_message = $this->crypt($message, $offset, false);
+		return $decrypted_message;
+	}
+
+	private function crypt($message, $offset, $encrypt) {
+		$letters_array = str_split($message);
+		($encrypt) ? $values = [25, 0, +1] : $values = [0, 25, -1];
 		foreach ($letters_array as $letter) {
 			if (!in_array($letter, $this->_alphabet)) {
 				$new_array[] = $letter;
 			} else {	
 				$position = array_search($letter, $this->_alphabet);
-				for ($i = 0 ; $i < $offset; $i++) {
-					if ($position === 0) {
-						$position = 25;
+				for ($i = 0; $i < $offset ; $i++) {
+					if ($position === $values[0]) {
+						$position = $values[1];
 					} else {
-						$position = $position -1;
+						$position = $position + $values[2];
 					}
-				}
+				} 
 				$new_array[] = $this->_alphabet[$position];
 			}
 		}
-		return $new_array;
+		return implode("", $new_array);
 	}
+
 }
 
 

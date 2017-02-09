@@ -63,12 +63,11 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 10:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {(function () {
@@ -76,7 +75,7 @@
 	app = {
 
 		init: function init() {
-			//this.listeners();
+			this.listeners();
 		},
 
 		listeners: function listeners() {
@@ -85,17 +84,17 @@
 
 		decrypt: function decrypt() {
 			var offset = $("#offset").val();
-			var id = $("#id").val();
+			var id = $("#id").html();
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
 			$.ajax({
-				url: '/decrypt/' + id + '/' + offset,
+				url: '/show/' + id + '/' + offset,
 				type: 'post'
 			}).done(function (response) {
-				$("#decrypted_message").html(response);
+				$('#decrypted_message').html(response);
 			});
 		}
 	};
@@ -105,15 +104,13 @@
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-
-/***/ 11:
+/* 1 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-
-/***/ 2:
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10340,14 +10337,12 @@ return jQuery;
 
 
 /***/ }),
-
-/***/ 39:
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(10);
-module.exports = __webpack_require__(11);
+__webpack_require__(0);
+module.exports = __webpack_require__(1);
 
 
 /***/ })
-
-/******/ });
+/******/ ]);
