@@ -40,12 +40,13 @@ class MessageController extends Controller
 
 
 	public function getShow($id) {
-		$message = Message::find($id);
+		$message = Message::findOrFail($id);
 		return view('show', ['message' => $message]);
 	}
 
 	public function postShow(Request $request, $id, $offset) {
-		$message = Message::find($id)->content;
+		$message = Message::findOrFail($id);
+		$message = $message->content;
 		//$offset = $request->offset;
 		$decrypted_message = $this->crypt($message, $offset, false);
 		return $decrypted_message;
