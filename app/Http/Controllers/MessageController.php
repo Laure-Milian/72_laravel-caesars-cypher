@@ -20,24 +20,22 @@ class MessageController extends Controller
 	public function postCreate(Request $request) {
 		$message = strtoupper($request->message);
 		$offset = $request->offset;
-		$encrypted_message = $this->crypt($message, $offset, true);
-		if (!mb_detect_encoding($encrypted_message, 'ASCII')) {
-			$request->session()->flash('fail', 'Offset incorrect, merci de choisir une autre valeur');
-			return back();
-		} else {
-			$this->saveMessage($encrypted_message, $offset);
+		$savingResult = $this->saveMessage($message, $offset);
+		if ($savingResult) {
 			$request->session()->flash('success', 'Votre message a bien été sauvegardé');
 			return redirect('/');
+		} else {
+			$request->session()->flash('fail', 'Offset incorrect, merci de choisir une autre valeur');
+			return back();
 		}
 	}
 
-	private function saveMessage($encrypted_message, $offset) {
+	private function saveMessage($message, $offset) {
 		$entry = new Message;
-		$entry->content = $encrypted_message;
+		$entry->content = $message;
 		$entry->offseting = $offset;
-		$entry->save();
+		return $entry->save();
 	}
-
 
 	public function getShow($id) {
 		$message = Message::findOrFail($id);
@@ -61,7 +59,7 @@ class MessageController extends Controller
 		return strval(implode("", $new_array));
 	}
 
- 
+
 }
 
 
