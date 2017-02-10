@@ -7,12 +7,6 @@ use App\Message;
 
 class MessageController extends Controller
 {
-	private $_alphabet; 
-
-	public function __construct() {
-		$letters = range('A', 'Z');
-		$this->_alphabet = $letters;
-	}
 
 	public function getList() {
 		$messages = Message::all();
@@ -31,7 +25,7 @@ class MessageController extends Controller
 		return redirect('/');
 	}
 
-	public function saveMessage($encrypted_message, $offset) {
+	private function saveMessage($encrypted_message, $offset) {
 		$entry = new Message;
 		$entry->content = $encrypted_message;
 		$entry->offseting = $offset;

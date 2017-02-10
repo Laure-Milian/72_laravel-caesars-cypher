@@ -19,8 +19,9 @@
 				}
 			});
 			$.ajax({
-				url: '/show/' + id + '/' + offset,
-				type: 'post'
+				url: '/show/' + id,
+				type: 'post',
+				data: 'offset' : + offset;
 			})
 			.done(function(response) {
 				$('#decrypted_message').html(response);

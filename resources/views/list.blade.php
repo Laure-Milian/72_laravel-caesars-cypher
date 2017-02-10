@@ -4,6 +4,8 @@
 
 <h1>Bienvenue sur notre messagerie top secrète</h1>
 
+<a class="ui blue button" href="/create">Créer un nouveau message secret</a>
+
 <h2>Tous les messages :</h2>
 
 @foreach($messages as $message)
@@ -13,6 +15,6 @@
 </div>
 @endforeach
 
-<a class="ui fluid blue button" href="/create">Envoyer un message</a>
+<a class="ui blue button" href="/create">Créer un nouveau message secret</a>
 
 @endsection
