@@ -49,7 +49,7 @@ class MessageController extends Controller
 		$message = $message->content;
 		//$offset = $request->offset;
 		$decrypted_message = $this->crypt($message, $offset, false);
-		return $decrypted_message;
+		return response()->json($decrypted_message);
 	}
 
 	private function crypt($message, $offset, $encrypt) {
