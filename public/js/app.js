@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,10 +79,12 @@
 		},
 
 		listeners: function listeners() {
-			$("#btnDecrypt").on('click', this.decrypt.bind(this));
+			$("#form").on("submit", this.decrypt.bind(this));
+			//$("#btnDecrypt").on('click', this.decrypt.bind(this));
 		},
 
-		decrypt: function decrypt() {
+		decrypt: function decrypt(event) {
+			event.preventDefault();
 			var offset = $("#offset").val();
 			var id = $("#id").html();
 			$.ajaxSetup({
@@ -91,8 +93,9 @@
 				}
 			});
 			$.ajax({
-				url: '/show/' + id + '/' + offset,
-				type: 'post'
+				url: '/show/' + id,
+				type: 'post',
+				data: { 'offset': offset }
 			}).done(function (response) {
 				$('#decrypted_message').html(response);
 			});
@@ -101,7 +104,7 @@
 
 	app.init();
 })();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
 /* 1 */
@@ -111,6 +114,22 @@
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(0);
+module.exports = __webpack_require__(1);
+
+
+/***/ }),
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10334,14 +10353,6 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(0);
-module.exports = __webpack_require__(1);
 
 
 /***/ })

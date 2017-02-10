@@ -2,19 +2,15 @@
 
 @section('content')
 
-<h2>Le message à déchiffrer</h2>
+<h2>Le message à déchiffrer (id = <span id="id">{{$message->id}}</span>)</h2>
 <div class="ui segment">
 	{{$message->content}}
 </div>
 
-<div id="id">{{$message->id}}</div>
-
-<h2>Quelle clef utiliser ?</h2>
-<!-- <form action="/show/{{$message->id}}" method="post"> -->
-<form onsubmit = "return false">
-	<div class="field">
+<form id="form" action="/show/{{$message->id}}" method="post">
+ 	<div class="field">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<label for="offset"></label>
+		<label for="offset">Quelle clef utiliser ?</label>
 		<input id="offset" name="offset" type="number">
 	</div>
 	<div>

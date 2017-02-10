@@ -19,6 +19,7 @@ class MessageController extends Controller
 
 	public function postCreate(Request $request) {
 		$message = strtoupper($request->message);
+		return $request;
 		$offset = $request->offset;
 		$encrypted_message = $this->crypt($message, $offset, true);
 		$this->saveMessage($encrypted_message, $offset);
@@ -38,10 +39,10 @@ class MessageController extends Controller
 		return view('show', ['message' => $message]);
 	}
 
-	public function postShow(Request $request, $id, $offset) {
+	public function postShow(Request $request, $id) {
 		$message = Message::findOrFail($id);
 		$message = $message->content;
-		//$offset = $request->offset;
+		$offset = $request->offset;
 		$decrypted_message = $this->crypt($message, $offset, false);
 		return response()->json($decrypted_message);
 	}

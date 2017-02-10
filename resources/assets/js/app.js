@@ -7,10 +7,12 @@
 		},
 
 		listeners: function() {
-			$("#btnDecrypt").on('click', this.decrypt.bind(this));
+			$("#form").on("submit", this.decrypt.bind(this));
+			//$("#btnDecrypt").on('click', this.decrypt.bind(this));
 		},
 
-		decrypt: function() {
+		decrypt: function(event) {
+			event.preventDefault();
 			let offset = $("#offset").val();
 			let id = $("#id").html();
 			$.ajaxSetup({
@@ -21,7 +23,7 @@
 			$.ajax({
 				url: '/show/' + id,
 				type: 'post',
-				data: 'offset' : + offset;
+				data: {'offset': offset}
 			})
 			.done(function(response) {
 				$('#decrypted_message').html(response);

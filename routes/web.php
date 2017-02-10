@@ -19,4 +19,4 @@ Route::post('/create', 'MessageController@postCreate');
 
 Route::get('/show/{id}', 'MessageController@getShow');
 
-Route::post('/show/{id}/{offset}', 'MessageController@postShow');
+Route::post('/show/{id}', 'MessageController@postShow');
