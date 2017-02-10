@@ -28,8 +28,7 @@ class MessageController extends Controller
 		$offset = $request->offset;
 		$encrypted_message = $this->crypt($message, $offset, true);
 		$this->saveMessage($encrypted_message, $offset);
-		$messages = Message::all();
-		return view('list', ['messages' => $messages]);
+		return redirect('/');
 	}
 
 	public function saveMessage($encrypted_message, $offset) {
@@ -53,26 +52,15 @@ class MessageController extends Controller
 	}
 
 	private function crypt($message, $offset, $encrypt) {
+		($encrypt) ? $offset : $offset = -$offset;
 		$letters_array = str_split($message);
-		($encrypt) ? $values = [25, 0, +1] : $values = [0, 25, -1];
 		foreach ($letters_array as $letter) {
-			if (!in_array($letter, $this->_alphabet)) {
-				$new_array[] = $letter;
-			} else {	
-				$position = array_search($letter, $this->_alphabet);
-				for ($i = 0; $i < $offset ; $i++) {
-					if ($position === $values[0]) {
-						$position = $values[1];
-					} else {
-						$position = $position + $values[2];
-					}
-				} 
-				$new_array[] = $this->_alphabet[$position];
-			}
+			$new_array[] = chr(ord($letter) + $offset);
 		}
-		return implode("", $new_array);
+		return strval(implode("", $new_array));
 	}
 
+ 
 }
 
 
