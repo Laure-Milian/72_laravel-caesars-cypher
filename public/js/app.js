@@ -80,7 +80,6 @@
 
 		listeners: function listeners() {
 			$("#form").on("submit", this.decrypt.bind(this));
-			//$("#btnDecrypt").on('click', this.decrypt.bind(this));
 		},
 
 		decrypt: function decrypt(event) {

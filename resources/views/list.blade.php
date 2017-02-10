@@ -2,7 +2,13 @@
 
 @section('content')
 
-<h1>Bienvenue sur notre messagerie top secrète</h1>
+<h1>Bienvenue sur votre messagerie top secrète</h1>
+
+@if (Session::has('success'))
+<div class="ui green message">
+	{{Session::get('success')}}
+</div>
+@endif
 
 <a class="ui blue button" href="/create">Créer un nouveau message secret</a>
 

@@ -19,11 +19,16 @@ class MessageController extends Controller
 
 	public function postCreate(Request $request) {
 		$message = strtoupper($request->message);
-		return $request;
 		$offset = $request->offset;
 		$encrypted_message = $this->crypt($message, $offset, true);
-		$this->saveMessage($encrypted_message, $offset);
-		return redirect('/');
+		if (!mb_detect_encoding($encrypted_message, 'ASCII')) {
+			$request->session()->flash('fail', 'Offset incorrect, merci de choisir une autre valeur');
+			return back();
+		} else {
+			$this->saveMessage($encrypted_message, $offset);
+			$request->session()->flash('success', 'Votre message a bien été sauvegardé');
+			return redirect('/');
+		}
 	}
 
 	private function saveMessage($encrypted_message, $offset) {

@@ -4,6 +4,13 @@
 
 <h1>Ecrivez votre message et choisissez le chiffrement</h1>
 
+@if (Session::has('fail'))
+<div class="ui red message">
+	{{Session::get('fail')}}
+</div>
+@endif
+
+
 <div>
 	<form class="ui reply form" action="create" method="post">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
