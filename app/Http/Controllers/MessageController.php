@@ -19,7 +19,7 @@ class MessageController extends Controller
 
 	public function postCreate(Request $request) {
 		try {
-			$message = strtoupper($request->message);
+			$message = $request->message;
 			$offset = $request->offset;
 			$savingResult = $this->saveMessage($message, $offset);
 			$request->session()->flash('success', 'Votre message a bien été sauvegardé');
